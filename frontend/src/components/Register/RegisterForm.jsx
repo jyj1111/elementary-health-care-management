@@ -1,15 +1,24 @@
 import { useState } from "react";
-
+import axios from "axios";
+import { useNavigate } from "react-router-dom";
 function RegisterForm() {
   const [user, setUser] = useState({ id: "", name: "", pw: "", email: "" });
+  const navigate = useNavigate();
   const onChange = (e) => {
     const { name, value } = e.target;
     setUser({ ...user, [name]: value });
   };
-  const onSubmit = (e) => {
+  const onSubmit = async (e) => {
     e.preventDefault();
+    const res = await axios.post("http://localhost:3000/auth/register", {
+      email: user.email,
+      password: user.pw,
+      username: user.name,
+    });
+    console.log(res);
     console.log(user);
     setUser({ id: "", name: "", pw: "", email: "" });
+    navigate("/");
   };
   return (
     <div>
@@ -39,6 +48,7 @@ function RegisterForm() {
           placeholder="이메일"
           onChange={onChange}
         />
+        <button>회원가입</button>
       </form>
     </div>
   );

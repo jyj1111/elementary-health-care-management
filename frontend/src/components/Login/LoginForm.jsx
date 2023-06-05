@@ -1,24 +1,30 @@
 import { useNavigate } from "react-router-dom";
 import { useState } from "react";
+import axios from "axios";
 function LoginForm() {
-  const [user, setUser] = useState({ id: "", pw: "" });
+  const [user, setUser] = useState({ email: "", pw: "" });
   const navigate = useNavigate();
   const onChange = (e) => {
     const { name, value } = e.target;
     setUser({ ...user, [name]: value });
   };
-  const onSubmit = (e) => {
+  const onSubmit = async (e) => {
     e.preventDefault();
+    const res = await axios.post("http://localhost:3000/auth/login", {
+      email: user.email,
+      password: user.pw,
+    });
+    console.log(res);
     console.log(user);
-    setUser({ id: "", pw: "" });
+    setUser({ email: "", pw: "" });
   };
   return (
     <div>
       <form onSubmit={onSubmit}>
         <input
-          name="id"
-          value={user.id}
-          placeholder="아이디"
+          name="email"
+          value={user.email}
+          placeholder="이메일"
           onChange={onChange}
         />
         <input
@@ -28,8 +34,14 @@ function LoginForm() {
           onChange={onChange}
         />
         <button>로그인</button>
-        <button onClick={() => navigate("/register")}>회원가입</button>
       </form>
+      <button
+        onClick={() => {
+          navigate("/register");
+        }}
+      >
+        회원가입
+      </button>
     </div>
   );
 }
