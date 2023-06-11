@@ -1,20 +1,21 @@
 import { useNavigate } from "react-router-dom";
 import { useState } from "react";
-import axios from "axios";
-function LoginForm() {
+
+function LoginForm({ mutate }) {
   const [user, setUser] = useState({ email: "", pw: "" });
   const navigate = useNavigate();
   const onChange = (e) => {
     const { name, value } = e.target;
     setUser({ ...user, [name]: value });
   };
+
   const onSubmit = async (e) => {
     e.preventDefault();
-    const res = await axios.post("http://localhost:3000/auth/login", {
+    const data = {
       email: user.email,
       password: user.pw,
-    });
-    console.log(res);
+    };
+    mutate(data);
     console.log(user);
     setUser({ email: "", pw: "" });
   };

@@ -9,7 +9,7 @@ function Router() {
       <Route index element={<LoginPage />}></Route>
       <Route path="/register" element={<RegisterPage />}></Route>
       <Route path="/">
-        <Route index element={<MainPage />}></Route>
+        <Route path="/main" element={<MainPage />}></Route>
         <Route path=":userId" element={<MyInfoPage />}></Route>
       </Route>
       <Route path="*" element={<p>Not Found</p>} />
