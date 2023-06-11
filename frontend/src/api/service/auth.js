@@ -14,11 +14,11 @@ export const register = async (user) => {
 };
 
 export const verify = async () => {
-  const { data } = await AxiosInstance.get("/api/auth/verify");
+  const { data } = await AxiosInstance.get("/auth/verify");
   return data;
 };
 
 export const refresh = async () => {
-  const { data } = await AxiosInstance.get("/api/auth/refresh");
+  const { data } = await AxiosInstance.get("/auth/refresh");
   return data;
 };
