@@ -4,8 +4,9 @@ import {
   PrimaryGeneratedColumn,
   CreateDateColumn,
   UpdateDateColumn,
+  OneToMany,
 } from "typeorm";
-
+import { Post } from "./Post";
 @Entity()
 export class User {
   @PrimaryGeneratedColumn()
@@ -25,4 +26,6 @@ export class User {
 
   @UpdateDateColumn()
   updatedAt: Date;
+  @OneToMany((type) => Post, (post) => post.author) // posts를 Post의 author와 연결
+  posts: Post[];
 }
